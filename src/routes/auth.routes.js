@@ -8,7 +8,11 @@ const router = Router();
 router.post("/register", async(req, res)=>{
     try {
         const userForm = req.body;
+        const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 
+	if( !validEmail.test(userForm.email) ){
+		alert(`${userForm.email} no cumple con el formato de correo electrónico`);
+    }else{
         const user = await userModel.findOne({email:userForm.email});
 
         if (!user) {
@@ -28,7 +32,7 @@ router.post("/register", async(req, res)=>{
                 }
         }else{
             res.send(`<div> usuario ya registrado anteriormente, <a href= "/register">Ir a Registrarse</a></div>`);
-        }
+        }}
     } catch (error) {
         res.send(`<div> error al registrarse, <a href= "/register">intente de nuevo</a></div>`);
     }
