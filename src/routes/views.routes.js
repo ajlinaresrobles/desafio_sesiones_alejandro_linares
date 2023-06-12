@@ -17,11 +17,12 @@ router.get("/register", (req, res)=>{
 
 router.get("/products", (req, res)=>{
 
-    console.log(req.session.user);
-    res.render("products", {email: req.session.user.email});
+    console.log(req.user);
+    res.render("products", {email: req.user.email});
 
 
 });
+
 
 
 export { router as viewsRouter};

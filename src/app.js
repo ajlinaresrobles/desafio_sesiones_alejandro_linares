@@ -7,6 +7,8 @@ import { __dirname } from "./utils.js";
 import path from "path";
 import { viewsRouter } from "./routes/views.routes.js";
 import { authRouter } from "./routes/auth.routes.js";
+import passport from "passport";
+import { initializePassport } from "./views/config/passport.config.js";
 
 
 const port = 8080;
@@ -35,6 +37,12 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(viewsRouter);
 app.use("/api/sessions", authRouter);
